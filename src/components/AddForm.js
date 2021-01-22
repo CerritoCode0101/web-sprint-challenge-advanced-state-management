@@ -1,24 +1,121 @@
-import React from 'react';
+import React from "react";
+//import functions from Actions folder
+import { addSmurf, handleError } from "../actions";
+import { connect } from "react-redux";
 
+//set up state for class component
 class AddForm extends React.Component {
-
-    render() {
-        return(<section>
-            <h2>Add Smurf</h2>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" />
-                </div>
-
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
-                <button>Submit Smurf</button>
-            </form>
-        </section>);
-    }
+  state = {
+    name: "",
+    position: "",
+    nickname: "",
+    description: "",
+    id: new Date(),
+  };
+//handleChange for form state management
+  render() {
+    const handleChange = (e) => {
+      const name = e.target.name;
+      this.setState({
+        ...this.state,
+        [name]: e.target.value,
+      });
+    };
+//nameValidation function for simple validation
+    const nameValidation = () => {
+      const names = this.props.smurfs.filter((smurf) => {
+        if (smurf.name === this.state.name) return true;
+      });
+      if (names.length !== 0) {
+        return false;
+      } else {
+        return true;
+      }
+    };
+    //create handleSubmit using validation and error handling
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const validation = nameValidation();
+      if (validation !== true) {
+        this.props.handleError("That name is already in use");
+        return;
+      }
+      this.props.addSmurf(this.state);
+      this.setState({
+        name: "",
+        position: "",
+        nickname: "",
+        description: "",
+        id: new Date(),
+      });
+    };
+ //create inputs/labels for form
+    return ( 
+      <section>
+        <h2 className="addSmurf" >Add Smurf</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <br />
+            <input
+              onChange={handleChange}
+              name="name"
+              id="name"
+              value={this.state.name}
+              required={true}
+            />
+            <label htmlFor="position">Position:</label>
+            <br />
+            <input
+              onChange={handleChange}
+              name="position"
+              id="position"
+              value={this.state.position}
+              required={true}
+            />
+            <label htmlFor="position">Nickname:</label>
+            <br />
+            <input
+              onChange={handleChange}
+              name="nickname"
+              id="nickname"
+              value={this.state.nickname}
+              required={true}
+            />
+            <label htmlFor="description">Description:</label>
+            <br />
+            <input
+              onChange={handleChange}
+              name="description"
+              id="description"
+              value={this.state.description}
+            />
+          </div>
+          {this.props.error === null ? (
+            ""
+          ) : (
+            <div
+              data-testid="errorAlert"
+              className="alert alert-danger"
+              role="alert"
+            >
+              Error: {this.props.error}{" "}
+            </div>
+          )}
+          <button className='smurfy' type="submit">Submit Smurf</button>
+        </form>
+      </section>
+    );
+  }
 }
-
-export default AddForm;
+//create mapStateToProps holding the smurf and error states and export with connect
+const mapStateToProps = (state) => {
+  return {
+    smurfs: state.smurfs,
+    error: state.error,
+  };
+};
+export default connect(mapStateToProps, { addSmurf, handleError })(AddForm);
 
 //Task List:
 //1. Add in all necessary import components and library methods.
