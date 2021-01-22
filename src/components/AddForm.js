@@ -12,7 +12,7 @@ class AddForm extends React.Component {
     description: "",
     id: new Date(),
   };
-//handleChange for form state management
+  //handleChange for form state management
   render() {
     const handleChange = (e) => {
       const name = e.target.name;
@@ -21,7 +21,7 @@ class AddForm extends React.Component {
         [name]: e.target.value,
       });
     };
-//nameValidation function for simple validation
+    //nameValidation function for simple validation
     const nameValidation = () => {
       const names = this.props.smurfs.filter((smurf) => {
         if (smurf.name === this.state.name) return true;
@@ -49,10 +49,10 @@ class AddForm extends React.Component {
         id: new Date(),
       });
     };
- //create inputs/labels for form
-    return ( 
+    //create inputs/labels/button for form
+    return (
       <section>
-        <h2 className="addSmurf" >Add Smurf</h2>
+        <h2 className="addSmurf">Add Smurf</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
@@ -102,7 +102,9 @@ class AddForm extends React.Component {
               Error: {this.props.error}{" "}
             </div>
           )}
-          <button className='smurfy' type="submit">Submit Smurf</button>
+          <button className="smurfy" type="submit">
+            Submit Smurf
+          </button>
         </form>
       </section>
     );

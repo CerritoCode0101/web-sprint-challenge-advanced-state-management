@@ -21,12 +21,29 @@ Commit your code regularly and meaningfully. This helps both you (in case you ev
 ## Interview Questions
 
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
-
 1. What problem does the context API help solve?
+
+   `It allows access to state throughout the app rather than only by using the top-down passing through prop drilling.`
+
 2. In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
+
+   `Actions: Actions define the types of calls sent to the reducer as well as determines the data sent through payloads and lets us run functions on the data, such as using thunk to run axios requests.`
+
+   `Reducers: Reducers are a means to handle state globally and manipulate it through defined action types and return the desired data.`
+
+   `The 'Store': The single source of truth, as its called, is that because when created we pass state into it, and then wrap our application or components in a Provider which gives them access to that state through the store rather than passing down through props. Every component that has access to the slice of state through a provider will go to that provider for state, rather than up to the parent or grandparent through props.`
+
 3. What is the difference between Application state and Component state? When would be a good time to use one over the other?
+
+   `Application state is global. A light/dark theme or Username might want to be global. Component state is local to the specific component like Form state. Separation of concerns mostly. The component that renders the App Header doesn't need access to the state holding form values in a separate component.`
+
 4. Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
+
+   `It takes our synchronous flow and turns it into async-chronous flow, which allows us to utilize async to make api calls inside of our action creators. A Thunk is a Function that returns another function`
+
 5. What is your favorite state management system you've learned and this sprint? Please explain why!
+
+   `Probably Redux with Thunk because it's really cool to do the api calls in the action-creators. Context API isn't bad but I really don't like the syntax for it. Context API is pretty similar to the store in Redux in that you wrap .Providers around the components you want to have slices of state, or 'contexts', and it probably is a lot simpler to use than Redux in that you don't have to connect state to props. `
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade. 
 

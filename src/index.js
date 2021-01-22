@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
+//added some css styles via index.css
 import "./index.css";
 import thunk from "redux-thunk";
 import reducer from "./reducers";
